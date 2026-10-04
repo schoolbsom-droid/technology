@@ -1,0 +1,727 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>التكنولوجيا في التعليم</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@600;800&family=Tajawal:wght@400;500;700&display=swap">
+<style>
+/* Layout: RTL story. Gradient hero, sticky chip nav, then one colour-coded section per axis of the course, ending with rubric and outcomes. */
+:root {
+  --font-display: "Baloo Bhaijaan 2", "Tajawal", Tahoma, system-ui, sans-serif;
+  --font-body: "Tajawal", Tahoma, system-ui, sans-serif;
+  --bg: #fff6fb;
+  --surface: #ffffff;
+  --fg: #231c4d;
+  --muted: #6a6390;
+  --line: #eadff3;
+  --violet: #6d4af0;
+  --coral: #e0265a;
+  --teal: #07806f;
+  --sky: #1a74e0;
+  --sun: #ffb81f;
+  --on-sun: #231c4d;
+  --on-accent: #ffffff;
+  --shadow: 0 10px 30px rgba(109, 74, 240, 0.12);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #151030; --surface: #211a45; --fg: #f4f0ff; --muted: #b6aedb; --line: #382f66;
+    --violet: #9a82ff; --coral: #ff7a9c; --teal: #2fd3bd; --sky: #66b2ff; --sun: #ffcf4d;
+    --on-sun: #231c4d; --on-accent: #151030; --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #151030; --surface: #211a45; --fg: #f4f0ff; --muted: #b6aedb; --line: #382f66;
+  --violet: #9a82ff; --coral: #ff7a9c; --teal: #2fd3bd; --sky: #66b2ff; --sun: #ffcf4d;
+  --on-sun: #231c4d; --on-accent: #151030; --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 17px; line-height: 1.8; padding-inline: 16px; padding-block: 0 56px; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.35; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+.wrap { max-width: 1040px; margin-inline: auto; }
+:focus-visible { outline: 3px solid var(--sky); outline-offset: 3px; border-radius: 8px; }
+
+.hero { margin-top: 16px; border-radius: 28px; padding: 36px 28px 30px; color: #fff; background: linear-gradient(135deg, #5b3de0 0%, #8a3fe0 45%, #e0378a 85%, #ff7a45 120%); position: relative; overflow: hidden; display: grid; gap: 22px; }
+.hero::before, .hero::after { content: ""; position: absolute; border-radius: 50%; pointer-events: none; }
+.hero::before { width: 240px; height: 240px; background: rgba(255, 207, 77, 0.35); inset-block-start: -90px; inset-inline-start: -70px; }
+.hero::after { width: 160px; height: 160px; background: rgba(47, 211, 189, 0.35); inset-block-end: -60px; inset-inline-end: 30%; }
+.hero > * { position: relative; z-index: 1; }
+.badge { display: inline-block; background: rgba(255, 255, 255, 0.2); padding: 2px 14px; border-radius: 999px; font-weight: 700; font-size: 0.9rem; width: fit-content; }
+.hero h1 { font-size: clamp(2rem, 6.5vw, 3.6rem); font-weight: 800; }
+.hero h1 span { color: #ffd966; }
+.hero .lead { font-size: 1.1rem; max-width: 36em; opacity: 0.96; }
+.facts { display: flex; flex-wrap: wrap; gap: 10px; }
+.fact { background: rgba(255, 255, 255, 0.16); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 16px; padding: 8px 16px; min-width: 0; }
+.fact small { display: block; font-size: 0.8rem; opacity: 0.85; line-height: 1.4; }
+.fact b { font-size: 1rem; }
+
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); padding-block: 12px; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+.nav a { flex: none; text-decoration: none; color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 2px 16px; font-weight: 700; font-size: 0.95rem; }
+.nav a:hover { border-color: var(--violet); color: var(--violet); }
+
+section { margin-top: 44px; scroll-margin-top: 70px; }
+.sec-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+.dot { width: 14px; height: 38px; border-radius: 8px; flex: none; }
+.sec-head h2 { font-size: clamp(1.4rem, 4.5vw, 2rem); font-weight: 800; }
+.time { background: color-mix(in srgb, var(--violet) 14%, var(--surface)); color: var(--violet); border-radius: 999px; padding: 0 14px; font-weight: 700; font-size: 0.9rem; }
+.sub { color: var(--muted); max-width: 42em; margin-bottom: 16px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 20px; box-shadow: var(--shadow); min-width: 0; }
+.stack { display: grid; gap: 14px; }
+.grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.grid.two { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+h3.t { font-size: 1.2rem; }
+.note { font-size: 0.88rem; color: var(--muted); }
+.quote { background: var(--violet); color: var(--on-accent); border-radius: 22px; padding: 18px 22px; font-family: var(--font-display); font-weight: 800; font-size: clamp(1.1rem, 3.5vw, 1.4rem); line-height: 1.7; }
+.c-coral { background: var(--coral); } .c-teal { background: var(--teal); } .c-sky { background: var(--sky); }
+.c-sun { background: var(--sun); color: var(--on-sun) !important; } .c-violet { background: var(--violet); }
+.tag { width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; font-family: var(--font-display); font-weight: 800; color: var(--on-accent); flex: none; }
+.list { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.list li { display: flex; gap: 10px; align-items: flex-start; line-height: 1.7; }
+.list li::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--teal); margin-top: 0.6em; flex: none; }
+
+/* flow of the course idea */
+.chain { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.chain span { padding: 4px 16px; border-radius: 999px; font-weight: 800; color: var(--on-accent); }
+.chain i { font-style: normal; color: var(--muted); font-weight: 800; }
+
+/* agenda */
+.bar-total { display: flex; height: 14px; border-radius: 999px; overflow: hidden; margin-bottom: 14px; gap: 3px; }
+.bar-total i { display: block; min-width: 4px; }
+.agenda { display: grid; gap: 10px; }
+a.step { display: flex; align-items: center; gap: 14px; padding: 12px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; color: var(--fg); text-decoration: none; }
+a.step:hover { border-color: var(--violet); }
+.num { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-display); font-weight: 800; color: var(--on-accent); flex: none; }
+a.step h3 { font-size: 1.05rem; flex: 1; min-width: 0; }
+.mins { background: color-mix(in srgb, var(--violet) 14%, var(--surface)); color: var(--violet); border-radius: 999px; padding: 0 12px; font-weight: 700; font-size: 0.9rem; flex: none; }
+
+/* controls */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font: inherit; font-weight: 700; font-size: 0.95rem; border: 1px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 999px; padding: 2px 18px; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.pill { border-radius: 999px; padding: 2px 16px; font-weight: 700; background: color-mix(in srgb, var(--sky) 13%, var(--surface)); }
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.tab { font: inherit; font-weight: 700; border: 2px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 14px; padding: 4px 16px; cursor: pointer; }
+.tab[aria-selected="true"] { border-color: var(--violet); background: color-mix(in srgb, var(--violet) 14%, var(--surface)); color: var(--violet); }
+.panel[hidden] { display: none; }
+.btn { font: inherit; font-weight: 800; border: 0; border-radius: 14px; padding: 6px 22px; background: var(--violet); color: var(--on-accent); cursor: pointer; }
+.btn.alt { background: var(--teal); }
+.btn.ghost { background: transparent; color: var(--violet); border: 2px solid var(--violet); }
+.btn-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.msg { font-weight: 700; color: var(--teal); min-height: 1.6em; }
+.field { display: grid; gap: 4px; min-width: 0; }
+.field label { font-weight: 700; }
+.field input[type="text"], .field select, .field textarea { font: inherit; width: 100%; min-width: 0; color: var(--fg); background: var(--surface); border: 2px solid var(--line); border-radius: 12px; padding: 8px 12px; }
+.field textarea { min-height: 150px; resize: vertical; line-height: 1.8; }
+.inline { display: flex; gap: 8px; }
+.inline .field { flex: 1; }
+.answer { background: color-mix(in srgb, var(--teal) 13%, var(--surface)); border-radius: 16px; padding: 12px 16px; display: grid; gap: 2px; }
+input[type="range"] { width: 100%; accent-color: var(--violet); }
+.check { display: flex; gap: 12px; align-items: flex-start; padding: 8px 12px; border-radius: 14px; background: color-mix(in srgb, var(--sun) 14%, var(--surface)); cursor: pointer; }
+.check input { width: 22px; height: 22px; margin-top: 5px; accent-color: var(--teal); flex: none; }
+.check span { min-width: 0; }
+.checks { display: grid; gap: 8px; }
+.meter { height: 20px; border-radius: 999px; background: color-mix(in srgb, var(--violet) 12%, var(--surface)); position: relative; overflow: hidden; }
+.meter i { position: absolute; inset-block: 0; inset-inline-start: 0; background: linear-gradient(90deg, var(--teal), var(--sky)); border-radius: 999px; width: 0; transition: width 0.3s; }
+.progress-line { display: flex; justify-content: space-between; font-weight: 700; }
+
+/* compare + sorter */
+.compare { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.compare > div { border-radius: 18px; padding: 14px 16px; }
+.compare .fun { background: color-mix(in srgb, var(--coral) 12%, var(--surface)); }
+.compare .learn { background: color-mix(in srgb, var(--teal) 13%, var(--surface)); }
+.compare h3 { font-size: 1.1rem; margin-bottom: 6px; }
+.q { display: grid; gap: 8px; background: color-mix(in srgb, var(--sun) 14%, var(--surface)); border-radius: 16px; padding: 12px 16px; }
+.q .btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.fb { font-size: 0.95rem; line-height: 1.6; }
+.fb.ok { color: var(--teal); font-weight: 700; } .fb.no { color: var(--coral); font-weight: 700; }
+.score { font-weight: 800; color: var(--violet); }
+.ideas { display: flex; flex-wrap: wrap; gap: 8px; min-height: 2.4em; }
+.ideas span { background: color-mix(in srgb, var(--violet) 14%, var(--surface)); border-radius: 999px; padding: 0 14px; }
+.cat-items { display: flex; flex-wrap: wrap; gap: 10px; }
+.cat-items span { border-radius: 14px; padding: 6px 16px; background: color-mix(in srgb, var(--sky) 12%, var(--surface)); font-weight: 700; }
+
+/* spot the error */
+.sent { font: inherit; text-align: start; width: 100%; border: 2px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 14px; padding: 10px 14px; cursor: pointer; }
+.sent.found { border-color: var(--teal); background: color-mix(in srgb, var(--teal) 13%, var(--surface)); }
+.sent.miss { border-color: var(--coral); background: color-mix(in srgb, var(--coral) 12%, var(--surface)); }
+
+/* project steps */
+.chips.types .pill { background: color-mix(in srgb, var(--violet) 12%, var(--surface)); }
+
+/* impact */
+.ind { display: grid; gap: 10px; }
+.ind h3 { font-size: 1.05rem; }
+.sl { display: grid; gap: 2px; }
+.sl label { display: flex; justify-content: space-between; font-weight: 700; font-size: 0.95rem; }
+.sl output { color: var(--violet); font-variant-numeric: tabular-nums; }
+.gain { font-weight: 800; color: var(--teal); font-variant-numeric: tabular-nums; }
+.bigrow { display: flex; gap: 22px; flex-wrap: wrap; font-variant-numeric: tabular-nums; }
+.bigrow small { display: block; color: var(--muted); line-height: 1.4; }
+.bigrow b { font-family: var(--font-display); font-size: 1.7rem; }
+.level { display: grid; gap: 6px; align-content: start; }
+.level p { color: var(--muted); font-size: 0.95rem; line-height: 1.7; }
+.tw { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; min-width: 460px; }
+th, td { text-align: start; padding: 8px 12px; border-bottom: 1px solid var(--line); }
+th { background: color-mix(in srgb, var(--violet) 12%, var(--surface)); }
+td input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--teal); }
+
+/* prompt boxes */
+.pbox { background: color-mix(in srgb, var(--violet) 8%, var(--surface)); border: 2px dashed var(--violet); border-radius: 16px; padding: 14px 16px; line-height: 1.9; }
+.timer { font-family: var(--font-display); font-size: clamp(2.6rem, 10vw, 4rem); font-weight: 800; color: var(--violet); font-variant-numeric: tabular-nums; line-height: 1.2; direction: ltr; text-align: center; }
+.big { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.3rem, 4vw, 1.8rem); }
+.stat { display: flex; justify-content: space-between; font-weight: 800; }
+.stat output { font-size: 1.6rem; font-family: var(--font-display); color: var(--violet); }
+
+footer { margin-top: 48px; text-align: center; color: var(--muted); font-size: 0.9rem; }
+.sign { font-family: var(--font-display); color: var(--fg); font-size: 1.15rem; font-weight: 800; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+</style>
+
+<div dir="rtl" lang="ar">
+<div class="wrap">
+
+<header class="hero">
+  <span class="badge">دورة تدريبية للطالبات</span>
+  <h1>التكنولوجيا في التعليم<br><span>أدوات حديثة للمتعلمات</span></h1>
+  <p class="lead">دورة عملية تنتهي بمنتج رقمي تصنعه الطالبة بنفسها، وتستخدم فيها الذكاء الاصطناعي لتوليد الأفكار، ثم نقيس الأثر ونخطط لاستمراره.</p>
+  <div class="facts">
+    <div class="fact"><small>تقدمها</small><b>أ. أحلام وأ. أمل</b></div>
+    <div class="fact"><small>الفئة المستهدفة</small><b>الطالبات</b></div>
+    <div class="fact"><small>المحاور</small><b>7 محاور ونشاط ختامي</b></div>
+    <div class="fact"><small>مدة اللقاء</small><b>نحو ساعة ونصف</b></div>
+  </div>
+</header>
+
+<nav class="nav" aria-label="أقسام الخطة">
+  <a href="#goal">الهدف</a><a href="#a1">1 التقنية</a><a href="#a2">2 الأدوات</a><a href="#a3">3 الأفكار</a><a href="#a4">4 المنتج</a><a href="#a5">5 الأمان</a><a href="#a6">6 قياس الأثر</a><a href="#a7">7 الاستدامة</a><a href="#final">النشاط الختامي</a><a href="#rubric">التقييم</a><a href="#outcomes">المخرجات</a>
+</nav>
+
+<!-- GOAL -->
+<section id="goal">
+  <div class="sec-head"><span class="dot c-violet"></span><h2>الهدف من الدورة</h2></div>
+  <div class="quote">تمكين الطالبات من توظيف الأدوات التقنية والذكاء الاصطناعي في التعلم بطريقة إبداعية وفعّالة، وتحويل التقنية من مجرد وسيلة للعرض إلى أداة للتفكير والإبداع وحل المشكلات وإنتاج المعرفة.</div>
+  <div class="card stack" style="margin-top:14px">
+    <h3 class="t">قاعدة الدورة في سطر واحد</h3>
+    <div class="chain"><span class="c-coral">فكرة</span><i>←</i><span class="c-teal">سؤال</span><i>←</i><span class="c-sky">ذكاء اصطناعي</span><i>←</i><span class="c-violet">تطوير</span><i>←</i><span class="c-sun">منتج</span></div>
+  </div>
+  <h3 class="t" style="margin:22px 0 8px">مسار الدورة</h3>
+  <p class="sub">اضغطي على أي محور لتنتقلي إليه. الشريط يوضح توزيع الوقت.</p>
+  <div class="bar-total" id="barTotal" aria-hidden="true"></div>
+  <div class="agenda" id="agendaList"></div>
+</section>
+
+<!-- AXIS 1 -->
+<section id="a1">
+  <div class="sec-head"><span class="dot c-coral"></span><h2>المحور الأول: التقنية تغيّر طريقة تعلّمنا</h2><span class="time">10 دقائق</span></div>
+  <div class="grid two">
+    <div class="card stack">
+      <h3 class="t">نتعرف على</h3>
+      <ul class="list"><li>مفهوم التكنولوجيا في التعليم.</li><li>كيف غيّرت التقنية طريقة الوصول إلى المعلومات؟</li><li>أمثلة على التعلم الرقمي في الحياة اليومية.</li></ul>
+    </div>
+    <div class="card stack">
+      <h3 class="t">الفرق بين استخدامين للتقنية</h3>
+      <div class="compare"><div class="fun"><h3>للترفيه</h3><p class="note">وقت ممتع، لكنه لا ينتج شيئًا جديدًا.</p></div><div class="learn"><h3>للتعلم والإنتاج</h3><p class="note">نتعلم بها شيئًا أو نصنع بها شيئًا.</p></div></div>
+    </div>
+  </div>
+
+  <div class="card stack" style="margin-top:14px">
+    <h3 class="t">نشاط افتتاحي</h3>
+    <p class="big">لو اختفت الكتب والأوراق لمدة يوم كامل، كيف ستتعلمين؟</p>
+    <p>تجمع الطالبات الأفكار على أداة تفاعلية، ثم نناقش. جربي هنا: اكتبي فكرة وأضيفيها.</p>
+    <div class="inline"><div class="field"><label for="ideaIn">فكرتي</label><input type="text" id="ideaIn" placeholder="مثال: أشاهد شرحًا مصورًا للدرس"></div><button class="btn" type="button" id="ideaAdd" style="align-self:end">أضيفي</button></div>
+    <div class="ideas" id="ideaList" aria-live="polite"></div>
+    <div class="answer"><b>سؤال النقاش</b><span>هل التقنية بديل للمعلم والكتاب؟ أم أداة تساعدنا على التعلم بطريقة أفضل؟</span></div>
+  </div>
+
+  <div class="card stack" style="margin-top:14px">
+    <h3 class="t">ترفيه أم تعلم؟ <span class="score" id="sortScore">0 من 5</span></h3>
+    <p class="note">أمثلة تدريبية. اختاري الاستخدام الأنسب لكل نشاط.</p>
+    <div class="stack" id="sortList"></div>
+  </div>
+</section>
+
+<!-- AXIS 2 -->
+<section id="a2">
+  <div class="sec-head"><span class="dot c-teal"></span><h2>المحور الثاني: أدوات حديثة تجعل التعلم أكثر فاعلية</h2><span class="time">15 دقيقة</span></div>
+  <p class="sub">تنقسم الأدوات إلى أربع فئات. اختاري فئة لتري أدواتها.</p>
+  <div class="card stack">
+    <div class="tabs" id="catTabs" role="tablist" aria-label="فئات الأدوات"></div>
+    <div id="catPanels"></div>
+  </div>
+  <div class="quote" style="margin-top:14px;background:var(--teal)">الأداة ليست هي الهدف. الهدف هو: ماذا ستجعلني أتعلم أو أُنتج بشكل أفضل؟</div>
+</section>
+
+<!-- AXIS 3 -->
+<section id="a3">
+  <div class="sec-head"><span class="dot c-sky"></span><h2>المحور الثالث: الذكاء الاصطناعي شريك في توليد الأفكار</h2><span class="time">20 دقيقة</span></div>
+  <p class="sub">هذا المحور هو نقطة القوة في الدورة. نبدأ بمشكلة حقيقية ونخرج بفكرة قابلة للتنفيذ.</p>
+
+  <div class="card stack">
+    <h3 class="t">نشاط عملي: «من مشكلة إلى فكرة»</h3>
+    <p>كل مجموعة تختار مشكلة تواجه الطالبات. اضغطي على مشكلة لتدخل في البرومبت.</p>
+    <div class="chips" id="probChips" role="group" aria-label="المشكلات"></div>
+  </div>
+
+  <div class="grid two" style="margin-top:14px">
+    <div class="card stack">
+      <h3 class="t">برومبت جاهز للطالبات</h3>
+      <div class="field"><label for="p1" class="note">يتغير نصه حسب المشكلة المختارة</label><textarea id="p1" readonly></textarea></div>
+      <div class="btn-row"><button class="btn" type="button" id="c1">انسخي البرومبت</button><span class="msg" id="m1" aria-live="polite"></span></div>
+    </div>
+    <div class="card stack">
+      <h3 class="t">برومبت تطوير الفكرة</h3>
+      <p class="note">بعد أن تختار الطالبة أفضل فكرة، تطلب من الذكاء الاصطناعي تطويرها.</p>
+      <div class="field"><label for="ideaPick">الفكرة التي اخترتها</label><input type="text" id="ideaPick" placeholder="اكتبي عنوان فكرتك"></div>
+      <div class="field"><label for="p2" class="note">البرومبت الجاهز</label><textarea id="p2" readonly style="min-height:130px"></textarea></div>
+      <div class="btn-row"><button class="btn alt" type="button" id="c2">انسخي البرومبت</button><span class="msg" id="m2" aria-live="polite"></span></div>
+    </div>
+  </div>
+
+  <div class="card stack" style="margin-top:14px">
+    <h3 class="t">قوالب إضافية لتوليد الأفكار</h3>
+    <div class="chips" id="techChips" role="group" aria-label="قوالب"></div>
+    <div class="field"><label for="tplOut" id="tplLabel">القالب</label><textarea id="tplOut" readonly style="min-height:100px"></textarea></div>
+    <div class="btn-row"><button class="btn ghost" type="button" id="cT">انسخي القالب</button><span class="msg" id="mT" aria-live="polite"></span></div>
+  </div>
+</section>
+
+<!-- AXIS 4 -->
+<section id="a4">
+  <div class="sec-head"><span class="dot c-sun"></span><h2>المحور الرابع: من فكرة إلى منتج رقمي</h2><span class="time">15 دقيقة</span></div>
+  <div class="quote" style="background:var(--sky)">هنا تنتقل الطالبة من المستهلكة للتقنية إلى المنتجة باستخدام التقنية.</div>
+  <div class="grid two" style="margin-top:14px">
+    <div class="card stack">
+      <h3 class="t">التحدي</h3>
+      <p>كل مجموعة تنتج نموذجًا أوليًا لفكرة رقمية. يمكن أن يكون:</p>
+      <div class="chips types" id="types"></div>
+    </div>
+    <div class="card stack">
+      <h3 class="t">خطوات المشروع</h3>
+      <div class="checks" id="stepChecks"></div>
+      <div class="progress-line"><span>تقدم المجموعة</span><span id="stepPct">0%</span></div>
+      <div class="meter" aria-hidden="true"><i id="stepFill"></i></div>
+    </div>
+  </div>
+</section>
+
+<!-- AXIS 5 -->
+<section id="a5">
+  <div class="sec-head"><span class="dot c-violet"></span><h2>المحور الخامس: الاستخدام الذكي والآمن للذكاء الاصطناعي</h2><span class="time">10 دقائق (مقترح)</span></div>
+  <p class="sub">جانب توعوي مهم في البرنامج. تتعلم الطالبة ستة سلوكيات.</p>
+  <div class="grid" id="safeGrid"></div>
+
+  <div class="card stack" style="margin-top:14px">
+    <h3 class="t">سؤال للنقاش</h3>
+    <p class="big">هل كل إجابة يقدمها الذكاء الاصطناعي صحيحة؟ لماذا؟</p>
+    <p>اقرئي هذه الإجابة المكتوبة على سبيل المثال، واضغطي على الجملة الخاطئة.</p>
+    <div class="stack" id="errList"></div>
+    <p class="fb" id="errFb" aria-live="polite"></p>
+  </div>
+
+  <div class="card stack" style="margin-top:14px">
+    <h3 class="t">صح أم خطأ؟ <span class="score" id="quizScore">0 من 4</span></h3>
+    <div class="stack" id="quizList"></div>
+  </div>
+</section>
+
+<!-- AXIS 6 -->
+<section id="a6">
+  <div class="sec-head"><span class="dot c-coral"></span><h2>المحور السادس: قياس أثر التقنية</h2><span class="time">10 دقائق</span></div>
+  <div class="quote" style="background:var(--coral);color:#fff">لا نريد أن نقول فقط «الطالبات استفدن من الدورة»، بل نثبت ذلك بالأرقام.</div>
+  <div class="grid two" style="margin-top:14px">
+    <div class="card stack"><h3 class="t">قياس قبلي</h3><p>قبل الدورة نسأل: ما مستوى معرفتك باستخدام الأدوات التقنية والذكاء الاصطناعي في التعلم؟ على مقياس من 1 إلى 5.</p></div>
+    <div class="card stack"><h3 class="t">قياس بعدي</h3><p>نفس السؤال بعد انتهاء الدورة، ثم نحسب الفرق بين المتوسط القبلي والبعدي.</p></div>
+  </div>
+
+  <div class="card stack" style="margin-top:14px">
+    <h3 class="t">احسبي التحسن</h3>
+    <p class="note">القيم الأولية هي المثال الوارد في المحتوى. غيّريها بنتائج طالباتك.</p>
+    <div class="bigrow">
+      <div><small>متوسط القبلي</small><b id="avgPre">2.4</b></div>
+      <div><small>متوسط البعدي</small><b id="avgPost">4.5</b></div>
+      <div><small>التحسن</small><b id="avgGain" style="color:var(--teal)">+2.1</b></div>
+      <div><small>نسبة التحسن</small><b id="avgPct" style="color:var(--teal)">88%</b></div>
+    </div>
+    <div class="grid" id="indGrid"></div>
+  </div>
+
+  <div class="card stack" style="margin-top:14px">
+    <h3 class="t">مؤشرات الأثر التي نقيسها</h3>
+    <ul class="list"><li>نسبة الطالبات اللاتي استطعن استخدام أداة رقمية.</li><li>عدد الأفكار التي تم توليدها.</li><li>عدد المشاريع التي تم إنتاجها.</li><li>نسبة الطالبات اللاتي استطعن كتابة برومبت صحيح.</li><li>مستوى التحسن بين الاختبار القبلي والبعدي.</li></ul>
+  </div>
+
+  <h3 class="t" style="margin:22px 0 10px">ثلاثة مستويات للقياس</h3>
+  <div class="grid">
+    <div class="card level"><span class="tag c-coral">1</span><h3 class="t">أثر مباشر</h3><b>قبل وبعد الدورة</b><p>هل ارتفعت معرفة الطالبات ومهاراتهن؟</p></div>
+    <div class="card level"><span class="tag c-teal">2</span><h3 class="t">أثر تطبيقي</h3><b>المنتج النهائي</b><p>هل استطاعت الطالبة تحويل ما تعلمته إلى منتج؟</p></div>
+    <div class="card level"><span class="tag c-sky">3</span><h3 class="t">أثر مستدام</h3><b>بعد 30 يومًا</b><p>هل استمرت الطالبة في استخدام التقنية والذكاء الاصطناعي؟</p></div>
+  </div>
+  <div class="card stack" style="margin-top:14px">
+    <h3 class="t">عبارة جاهزة للتقرير النهائي</h3>
+    <div class="pbox" id="report">لم تقتصر الدورة على رفع الوعي بالتقنيات الحديثة، بل انتقلت بالطالبات من التعرف على الأدوات إلى توظيفها في توليد الأفكار وإنتاج حلول رقمية، مع قياس التحسن قبليًا وبعديًا ومتابعة استدامة الأثر بعد 30 يومًا.</div>
+    <div class="btn-row"><button class="btn" type="button" id="cR">انسخي العبارة</button><span class="msg" id="mR" aria-live="polite"></span></div>
+    <textarea id="reportCopy" readonly style="position:absolute;inset-inline-start:-9999px;width:1px;height:1px" aria-hidden="true" tabindex="-1"></textarea>
+  </div>
+</section>
+
+<!-- AXIS 7 -->
+<section id="a7">
+  <div class="sec-head"><span class="dot c-teal"></span><h2>المحور السابع: استدامة الأثر</h2><span class="time">بعد الدورة</span></div>
+  <p class="sub">هذا ما يجعل الدورة أقوى من لقاء ينتهي بانتهاء الوقت.</p>
+  <div class="card stack">
+    <h3 class="t">تحدي 30 يومًا</h3>
+    <p class="big">استخدمي أداة تقنية أو أداة ذكاء اصطناعي واحدة على الأقل كل أسبوع لإنجاز مهمة تعليمية أو إبداعية.</p>
+    <p>وتسجل الطالبة في بطاقة المتابعة. ضعي علامة عند إنجاز كل أسبوع.</p>
+    <div class="tw"><table>
+      <thead><tr><th>الأسبوع</th><th>الأداة</th><th>ماذا أنجزت؟</th><th>ماذا تعلمت؟</th><th>تم</th></tr></thead>
+      <tbody id="weeks"></tbody>
+    </table></div>
+    <div class="progress-line"><span>إنجاز التحدي</span><span id="weekPct">0%</span></div>
+    <div class="meter" aria-hidden="true"><i id="weekFill"></i></div>
+  </div>
+  <div class="card stack" style="margin-top:14px">
+    <h3 class="t">استبيان المتابعة بعد 30 يومًا</h3>
+    <p class="big">هل ما زلت تستخدمين الأدوات التي تعلمتها؟</p>
+    <div class="chips" id="survey" role="group" aria-label="خيارات الاستبيان"></div>
+    <p class="fb" id="surveyFb" aria-live="polite"></p>
+    <p class="note">وبذلك يصبح لدينا قياس للاستدامة وليس فقط قياس للرضا.</p>
+  </div>
+</section>
+
+<!-- FINAL ACTIVITY -->
+<section id="final">
+  <div class="sec-head"><span class="dot c-sun"></span><h2>النشاط الختامي: «ابتكري الحل»</h2><span class="time">15 دقيقة</span></div>
+  <p class="sub">تقسم الطالبات إلى مجموعات، وكل مجموعة تحصل على مشكلة.</p>
+  <div class="grid two">
+    <div class="card stack">
+      <h3 class="t">اسحبي مشكلة مجموعتك</h3>
+      <div class="answer"><span class="big" id="drawOut" aria-live="polite">النفايات</span></div>
+      <div class="btn-row"><button class="btn" type="button" id="drawBtn">اسحبي مشكلة</button></div>
+      <p class="note">المشكلات: النفايات، الازدحام، تنظيم الوقت، القراءة، البيئة، مساعدة ذوي الإعاقة.</p>
+    </div>
+    <div class="card stack">
+      <h3 class="t">المطلوب</h3>
+      <div class="checks" id="finalSteps"></div>
+    </div>
+  </div>
+  <div class="grid two" style="margin-top:14px">
+    <div class="card stack"><h3 class="t">وقت العمل</h3><div class="timer" id="t1">15:00</div><div class="btn-row"><button class="btn" type="button" data-t="t1" data-a="start">ابدئي</button><button class="btn ghost" type="button" data-t="t1" data-a="pause">إيقاف</button><button class="btn ghost" type="button" data-t="t1" data-a="reset">من جديد</button></div></div>
+    <div class="card stack"><h3 class="t">تقدم كل مجموعة فكرتها في دقيقة واحدة</h3><div class="timer" id="t2">01:00</div><div class="btn-row"><button class="btn alt" type="button" data-t="t2" data-a="start">ابدئي</button><button class="btn ghost" type="button" data-t="t2" data-a="pause">إيقاف</button><button class="btn ghost" type="button" data-t="t2" data-a="reset">من جديد</button></div></div>
+  </div>
+</section>
+
+<!-- RUBRIC -->
+<section id="rubric">
+  <div class="sec-head"><span class="dot c-violet"></span><h2>بطاقة تقييم المشروع</h2></div>
+  <p class="sub">حركي المؤشر لكل معيار من 0 إلى 5. المجموع من 40.</p>
+  <div class="card stack">
+    <div class="stat"><span>المجموع</span><output id="rubTotal">0 من 40</output></div>
+    <div class="meter" aria-hidden="true"><i id="rubFill"></i></div>
+    <div class="grid" id="rubGrid"></div>
+  </div>
+</section>
+
+<!-- OUTCOMES -->
+<section id="outcomes">
+  <div class="sec-head"><span class="dot c-teal"></span><h2>مخرجات الدورة</h2></div>
+  <p class="sub">بنهاية الدورة يُتوقع أن تكون الطالبة قادرة على الأمور التالية. ضعي علامة على ما أتقنتِه.</p>
+  <div class="card stack">
+    <div class="checks" id="outList"></div>
+    <div class="progress-line"><span>ما أتقنته</span><span id="outPct">0%</span></div>
+    <div class="meter" aria-hidden="true"><i id="outFill"></i></div>
+  </div>
+</section>
+
+<footer>
+  <p class="sign">أ. أحلام وأ. أمل</p>
+  <p>شكرًا لكن على المشاركة</p>
+</footer>
+</div>
+</div>
+
+<script>
+(function () {
+  function $(id) { return document.getElementById(id); }
+  function make(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html !== undefined) e.innerHTML = html; return e; }
+  function store(key, val) { try { if (val === undefined) { return JSON.parse(localStorage.getItem(key) || 'null'); } localStorage.setItem(key, JSON.stringify(val)); } catch (e) { return null; } }
+  function copyFrom(el, msg) {
+    var txt = el.value !== undefined && el.tagName === 'TEXTAREA' ? el.value : el.textContent;
+    function done(t) { msg.textContent = t; setTimeout(function () { msg.textContent = ''; }, 2500); }
+    function fallback() { try { el.focus(); el.select(); } catch (e) {} done('تم تحديد النص، انسخيه من جهازك'); }
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(txt).then(function () { done('تم النسخ'); }, fallback); } else { fallback(); }
+  }
+  function progress(boxes, pctEl, fillEl) {
+    var n = 0; boxes.forEach(function (b) { if (b.checked) n++; });
+    var p = Math.round(n / boxes.length * 100);
+    pctEl.textContent = p + '%'; fillEl.style.width = p + '%';
+  }
+  function checklist(listEl, items, key, pctEl, fillEl) {
+    var saved = store(key) || [];
+    var boxes = [];
+    items.forEach(function (t, i) {
+      var l = make('label', 'check', '<input type="checkbox"><span>' + t + '</span>');
+      var inp = l.querySelector('input'); inp.checked = saved.indexOf(i) > -1; boxes.push(inp);
+      inp.addEventListener('change', function () {
+        var on = []; boxes.forEach(function (b, j) { if (b.checked) on.push(j); });
+        store(key, on); progress(boxes, pctEl, fillEl);
+      });
+      listEl.appendChild(l);
+    });
+    progress(boxes, pctEl, fillEl);
+    return boxes;
+  }
+
+  /* agenda */
+  var axes = [
+    { id: 'a1', t: 'التقنية تغيّر طريقة تعلّمنا', m: 10, c: 'c-coral', l: '10 د' },
+    { id: 'a2', t: 'أدوات حديثة تجعل التعلم أكثر فاعلية', m: 15, c: 'c-teal', l: '15 د' },
+    { id: 'a3', t: 'الذكاء الاصطناعي شريك في توليد الأفكار', m: 20, c: 'c-sky', l: '20 د' },
+    { id: 'a4', t: 'من فكرة إلى منتج رقمي', m: 15, c: 'c-sun', l: '15 د' },
+    { id: 'a5', t: 'الاستخدام الذكي والآمن للذكاء الاصطناعي', m: 10, c: 'c-violet', l: '10 د' },
+    { id: 'a6', t: 'قياس أثر التقنية', m: 10, c: 'c-coral', l: '10 د' },
+    { id: 'final', t: 'النشاط الختامي: ابتكري الحل', m: 15, c: 'c-teal', l: '15 د' },
+    { id: 'a7', t: 'استدامة الأثر', m: 0, c: 'c-sky', l: 'بعد الدورة' }
+  ];
+  var bar = $('barTotal'), al = $('agendaList');
+  axes.forEach(function (a, i) {
+    if (a.m) { var seg = make('i', a.c); seg.style.flex = a.m; bar.appendChild(seg); }
+    var num = i < 6 ? String(i + 1) : (a.id === 'final' ? 'ن' : '7');
+    var link = make('a', 'step', '<span class="num ' + a.c + '">' + num + '</span><h3>' + a.t + '</h3><span class="mins">' + a.l + '</span>');
+    link.href = '#' + a.id; al.appendChild(link);
+  });
+
+  /* axis 1: ideas */
+  var ideas = [];
+  function addIdea() {
+    var v = $('ideaIn').value.trim(); if (!v) return;
+    ideas.push(v); $('ideaIn').value = '';
+    $('ideaList').innerHTML = ideas.map(function (x) { return '<span></span>'; }).join('');
+    var spans = $('ideaList').querySelectorAll('span'); ideas.forEach(function (x, i) { spans[i].textContent = x; });
+  }
+  $('ideaAdd').addEventListener('click', addIdea);
+  $('ideaIn').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); addIdea(); } });
+
+  var sortItems = [
+    { s: 'مشاهدة مقاطع للتسلية', a: 0 }, { s: 'إنشاء اختبار إلكتروني لزميلاتي', a: 1 },
+    { s: 'تصميم إنفوجرافيك عن درس', a: 1 }, { s: 'لعبة إلكترونية للتسلية', a: 0 },
+    { s: 'تلخيص درس بمساعدة أداة ذكية', a: 1 }
+  ];
+  var sGot = {};
+  sortItems.forEach(function (x, i) {
+    var d = make('div', 'q', '<p><b></b></p><div class="btns"><button type="button" class="chip" data-v="0">ترفيه</button><button type="button" class="chip" data-v="1">تعلم وإنتاج</button></div><p class="fb" aria-live="polite"></p>');
+    d.querySelector('b').textContent = x.s;
+    d.querySelectorAll('.chip').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var ok = +b.dataset.v === x.a; sGot[i] = ok;
+        d.querySelectorAll('.chip').forEach(function (c) { c.setAttribute('aria-pressed', c === b ? 'true' : 'false'); });
+        var fb = d.querySelector('.fb'); fb.className = 'fb ' + (ok ? 'ok' : 'no');
+        fb.textContent = ok ? 'إجابة صحيحة.' : 'فكري مرة أخرى: هل ينتج هذا النشاط شيئًا أو يعلمك شيئًا؟';
+        var n = 0; Object.keys(sGot).forEach(function (k) { if (sGot[k]) n++; });
+        $('sortScore').textContent = n + ' من ' + sortItems.length;
+      });
+    });
+    $('sortList').appendChild(d);
+  });
+
+  /* axis 2: categories */
+  var cats = [
+    { n: 'البحث والوصول للمعلومة', c: 'c-sky', items: ['محركات البحث', 'المصادر الرقمية', 'المكتبات والمنصات التعليمية'] },
+    { n: 'الإبداع والتصميم', c: 'c-coral', items: ['Canva', 'العروض التفاعلية', 'الإنفوجرافيك', 'تصميم الفيديو والمحتوى الرقمي'] },
+    { n: 'الذكاء الاصطناعي', c: 'c-violet', note: 'نستخدمه في:', items: ['توليد الأفكار', 'تلخيص المعلومات', 'طرح الأسئلة', 'العصف الذهني', 'كتابة المسودات', 'تطوير المشاريع', 'إنشاء خطط للتعلم'] },
+    { n: 'التفاعل والتقييم', c: 'c-teal', items: ['الاختبارات الإلكترونية', 'الاستبيانات', 'الألعاب التعليمية', 'لوحات المشاركة والتغذية الراجعة'] }
+  ];
+  var ct = $('catTabs'), cp = $('catPanels');
+  cats.forEach(function (c, i) {
+    var b = make('button', 'tab', (i + 1) + '. ' + c.n); b.type = 'button'; b.id = 'ct' + i;
+    b.setAttribute('role', 'tab'); b.setAttribute('aria-selected', i === 0 ? 'true' : 'false'); b.setAttribute('aria-controls', 'cpn' + i);
+    b.addEventListener('click', function () {
+      ct.querySelectorAll('.tab').forEach(function (x, j) { x.setAttribute('aria-selected', j === i ? 'true' : 'false'); cp.children[j].hidden = j !== i; });
+    });
+    ct.appendChild(b);
+    var p = make('div', 'panel stack', (c.note ? '<p><b>' + c.note + '</b></p>' : '') + '<div class="cat-items">' + c.items.map(function (x) { return '<span>' + x + '</span>'; }).join('') + '</div>');
+    p.id = 'cpn' + i; p.setAttribute('role', 'tabpanel'); p.setAttribute('aria-labelledby', 'ct' + i); p.hidden = i !== 0;
+    cp.appendChild(p);
+  });
+
+  /* axis 3: prompts */
+  var probs = ['التأخر عن المدرسة', 'هدر الطعام', 'كثرة النفايات', 'صعوبة تنظيم الوقت', 'الازدحام', 'قلة القراءة', 'المحافظة على البيئة'];
+  var curProb = '';
+  function buildP1() {
+    var where = curProb ? 'مشكلة «' + curProb + '» التي تواجه الطالبات' : 'مشكلة تواجه الطالبات';
+    $('p1').value = 'أنا طالبة وأريد ابتكار مشروع تقني يحل ' + where + ' في المدرسة. اقترح لي 5 أفكار مبتكرة، واجعل كل فكرة تتضمن: المشكلة، الحل التقني، الفئة المستفيدة، الأدوات المطلوبة، وكيف يمكن تطوير الفكرة مستقبلًا.';
+  }
+  function buildP2() {
+    var idea = $('ideaPick').value.trim();
+    $('p2').value = 'طوّر الفكرة التالية' + (idea ? ': «' + idea + '»' : '') + ' وحوّلها إلى مشروع قابل للتنفيذ، وحدد الهدف، خطوات التنفيذ، الأدوات التقنية، الفئة المستهدفة، والنتيجة المتوقعة.';
+  }
+  var pcWrap = $('probChips');
+  probs.forEach(function (p) {
+    var b = make('button', 'chip', p); b.type = 'button'; b.setAttribute('aria-pressed', 'false');
+    b.addEventListener('click', function () {
+      curProb = p; pcWrap.querySelectorAll('.chip').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      buildP1();
+    });
+    pcWrap.appendChild(b);
+  });
+  buildP1(); buildP2();
+  $('ideaPick').addEventListener('input', buildP2);
+  $('c1').addEventListener('click', function () { copyFrom($('p1'), $('m1')); });
+  $('c2').addEventListener('click', function () { copyFrom($('p2'), $('m2')); });
+
+  var techs = [
+    { n: 'العصف الذهني', t: 'أعطني 10 أفكار مختلفة عن [موضوعك]، ورتبها من الأسهل تنفيذًا إلى الأصعب.' },
+    { n: 'ماذا لو؟', t: 'ماذا لو لم يكن هناك حد للوقت أو المال في [موضوعك]؟ اقترح 5 أفكار جريئة، ثم حوّل أفضلها إلى نسخة بسيطة أنفذها خلال أسبوع.' },
+    { n: 'ادمجي فكرتين', t: 'ادمج [فكرة أولى] مع [فكرة ثانية] لتخرج بمشروع جديد، واشرح كيف تخدم كل فكرة الأخرى.' },
+    { n: 'اعكسي المشكلة', t: 'كيف أجعل [المشكلة] أسوأ ما يمكن؟ اكتب 5 طرق، ثم اعكس كل طريقة لتعطيني حلًا.' }
+  ];
+  var tc = $('techChips');
+  function showTech(i) {
+    tc.querySelectorAll('.chip').forEach(function (x, j) { x.setAttribute('aria-pressed', j === i ? 'true' : 'false'); });
+    $('tplOut').value = techs[i].t; $('tplLabel').textContent = 'قالب: ' + techs[i].n;
+  }
+  techs.forEach(function (x, i) { var b = make('button', 'chip', x.n); b.type = 'button'; b.addEventListener('click', function () { showTech(i); }); tc.appendChild(b); });
+  showTech(0);
+  $('cT').addEventListener('click', function () { copyFrom($('tplOut'), $('mT')); });
+
+  /* axis 4 */
+  ['تصميم توعوي', 'إنفوجرافيك', 'عرض تفاعلي', 'حملة رقمية', 'فكرة تطبيق', 'نموذج خدمة إلكترونية', 'فيديو قصير', 'لعبة تعليمية', 'مساعد ذكي لفكرة تعليمية'].forEach(function (t) { $('types').appendChild(make('span', 'pill', t)); });
+  var stepNames = ['تحديد المشكلة', 'توليد الأفكار بالذكاء الاصطناعي', 'اختيار الحل', 'تصميم النموذج الأولي', 'عرض الفكرة', 'الحصول على التغذية الراجعة', 'تطوير المنتج'];
+  checklist($('stepChecks'), stepNames.map(function (s, i) { return '<b>' + (i + 1) + '.</b> ' + s; }), 'te-steps', $('stepPct'), $('stepFill'));
+
+  /* axis 5 */
+  var safe = [
+    ['عدم مشاركة البيانات الشخصية', 'c-coral'], ['عدم نسخ إجابة الذكاء الاصطناعي دون فهمها', 'c-teal'], ['التحقق من المعلومات', 'c-sky'],
+    ['استخدامه لتوليد الأفكار وليس للغش', 'c-violet'], ['احترام حقوق الملكية الفكرية', 'c-sun'], ['التفكير النقدي في مخرجاته', 'c-coral']
+  ];
+  safe.forEach(function (s, i) { $('safeGrid').appendChild(make('div', 'card', '<div style="display:flex;gap:12px;align-items:center"><span class="tag ' + s[1] + '">' + (i + 1) + '</span><b>' + s[0] + '</b></div>')); });
+  var errs = [
+    { t: 'الرياض هي عاصمة المملكة العربية السعودية.', bad: false },
+    { t: 'جدة هي أكبر مدن المملكة وهي عاصمتها السياسية.', bad: true },
+    { t: 'تقع المملكة في غرب قارة آسيا.', bad: false }
+  ];
+  var done = false;
+  errs.forEach(function (e) {
+    var b = make('button', 'sent', ''); b.type = 'button'; b.textContent = e.t;
+    b.addEventListener('click', function () {
+      if (done) return;
+      if (e.bad) { done = true; b.className = 'sent found'; $('errFb').className = 'fb ok'; $('errFb').textContent = 'أحسنتِ! الرياض هي العاصمة، والتحقق من المصدر كشف الخطأ.'; }
+      else { b.className = 'sent miss'; $('errFb').className = 'fb no'; $('errFb').textContent = 'هذه الجملة صحيحة. ابحثي عن الجملة الخاطئة.'; }
+    });
+    $('errList').appendChild(b);
+  });
+  var quiz = [
+    { s: 'أنسخ إجابة الذكاء الاصطناعي كما هي في واجبي.', a: false, f: 'قد تحتوي الإجابة على أخطاء، والواجب مسؤوليتك.' },
+    { s: 'أراجع المعلومة من الكتاب أو مصدر موثوق قبل اعتمادها.', a: true, f: 'التحقق هو ما يجعل المعلومة موثوقة.' },
+    { s: 'أكتب رقم هاتفي واسم مدرستي في الطلب ليعرفني.', a: false, f: 'لا تشاركي بياناتك الشخصية مع أي أداة.' },
+    { s: 'أذكر أنني استعنت بالذكاء الاصطناعي في عملي.', a: true, f: 'ذكر المصدر أمانة وجزء من الاستخدام المسؤول.' }
+  ];
+  var qg = {};
+  quiz.forEach(function (x, i) {
+    var d = make('div', 'q', '<p><b></b></p><div class="btns"><button type="button" class="chip" data-v="1">صح</button><button type="button" class="chip" data-v="0">خطأ</button></div><p class="fb" aria-live="polite"></p>');
+    d.querySelector('b').textContent = x.s;
+    d.querySelectorAll('.chip').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var ok = (b.dataset.v === '1') === x.a; qg[i] = ok;
+        d.querySelectorAll('.chip').forEach(function (c) { c.setAttribute('aria-pressed', c === b ? 'true' : 'false'); });
+        var fb = d.querySelector('.fb'); fb.className = 'fb ' + (ok ? 'ok' : 'no');
+        fb.textContent = (ok ? 'إجابة صحيحة. ' : 'ليست دقيقة. ') + x.f;
+        var n = 0; Object.keys(qg).forEach(function (k) { if (qg[k]) n++; });
+        $('quizScore').textContent = n + ' من ' + quiz.length;
+      });
+    });
+    $('quizList').appendChild(d);
+  });
+
+  /* axis 6: pre/post */
+  var inds = [
+    ['معرفة الأدوات الرقمية', 2.4, 4.5], ['القدرة على توليد الأفكار', 2.6, 4.4],
+    ['الثقة في استخدام الذكاء الاصطناعي', 2.1, 4.3], ['القدرة على إنتاج محتوى رقمي', 2.5, 4.6]
+  ];
+  var rows = [];
+  inds.forEach(function (d, i) {
+    var c = make('div', 'card ind', '<h3></h3>' +
+      '<div class="sl"><label for="pre' + i + '">قبل الدورة <output></output></label><input type="range" id="pre' + i + '" min="1" max="5" step="0.1" value="' + d[1] + '"></div>' +
+      '<div class="sl"><label for="post' + i + '">بعد الدورة <output></output></label><input type="range" id="post' + i + '" min="1" max="5" step="0.1" value="' + d[2] + '"></div>' +
+      '<div class="gain" aria-live="polite"></div>');
+    c.querySelector('h3').textContent = d[0];
+    $('indGrid').appendChild(c);
+    rows.push({ pre: c.querySelector('#pre' + i), post: c.querySelector('#post' + i), outs: c.querySelectorAll('output'), gain: c.querySelector('.gain') });
+  });
+  function calcAll() {
+    var sp = 0, so = 0;
+    rows.forEach(function (r) {
+      var a = +r.pre.value, b = +r.post.value; sp += a; so += b;
+      r.outs[0].textContent = a.toFixed(1) + ' / 5'; r.outs[1].textContent = b.toFixed(1) + ' / 5';
+      var g = b - a; r.gain.textContent = 'التحسن: ' + (g >= 0 ? '+' : '') + g.toFixed(1) + ' (' + Math.round(g / a * 100) + '%)';
+    });
+    var ap = sp / rows.length, ao = so / rows.length, g = ao - ap;
+    $('avgPre').textContent = ap.toFixed(1); $('avgPost').textContent = ao.toFixed(1);
+    $('avgGain').textContent = (g >= 0 ? '+' : '') + g.toFixed(1); $('avgPct').textContent = Math.round(g / ap * 100) + '%';
+  }
+  rows.forEach(function (r) { r.pre.addEventListener('input', calcAll); r.post.addEventListener('input', calcAll); });
+  calcAll();
+  $('cR').addEventListener('click', function () { $('reportCopy').value = $('report').textContent; copyFrom($('reportCopy'), $('mR')); });
+
+  /* axis 7 */
+  var weeks = [['الأول', 'Canva', 'تصميم', 'تعلمت التصميم'], ['الثاني', 'AI', 'توليد فكرة', 'تعلمت كتابة البرومبت'], ['الثالث', 'أداة تفاعلية', 'اختبار', 'تعلمت إنشاء تقييم'], ['الرابع', 'AI + Canva', 'مشروع', 'إنتاج محتوى رقمي']];
+  var wSaved = store('te-weeks') || [], wBoxes = [];
+  weeks.forEach(function (w, i) {
+    var tr = make('tr', '', '<td></td><td></td><td></td><td></td><td><input type="checkbox" aria-label="تم الأسبوع ' + w[0] + '"></td>');
+    var tds = tr.querySelectorAll('td'); for (var k = 0; k < 4; k++) tds[k].textContent = w[k];
+    var inp = tr.querySelector('input'); inp.checked = wSaved.indexOf(i) > -1; wBoxes.push(inp);
+    inp.addEventListener('change', function () { var on = []; wBoxes.forEach(function (b, j) { if (b.checked) on.push(j); }); store('te-weeks', on); progress(wBoxes, $('weekPct'), $('weekFill')); });
+    $('weeks').appendChild(tr);
+  });
+  progress(wBoxes, $('weekPct'), $('weekFill'));
+  var opts = [['نعم بشكل مستمر', 'ممتاز. هذا هو الأثر المستدام الذي نبحث عنه.'], ['أحيانًا', 'بداية جيدة. ذكّري الطالبات بتحدي الأسبوع وبطاقة المتابعة.'], ['لا', 'نحتاج لفهم السبب وإعادة تحفيز الطالبات بمهمة جديدة.']];
+  opts.forEach(function (o) {
+    var b = make('button', 'chip', o[0]); b.type = 'button'; b.setAttribute('aria-pressed', 'false');
+    b.addEventListener('click', function () { $('survey').querySelectorAll('.chip').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); $('surveyFb').className = 'fb ok'; $('surveyFb').textContent = o[1]; });
+    $('survey').appendChild(b);
+  });
+
+  /* final activity */
+  var finals = ['النفايات', 'الازدحام', 'تنظيم الوقت', 'القراءة', 'البيئة', 'مساعدة ذوي الإعاقة'];
+  $('drawBtn').addEventListener('click', function () { $('drawOut').textContent = finals[Math.floor(Math.random() * finals.length)]; });
+  checklist($('finalSteps'), ['تحديد المشكلة.', 'استخدام الذكاء الاصطناعي لتوليد 3 أفكار.', 'اختيار أفضل فكرة.', 'تصميم نموذج أولي.', 'كتابة طريقة قياس نجاح المشروع.', 'تحديد كيف يمكن استمرار المشروع بعد انتهاء الدورة.'].map(function (s, i) { return '<b>' + (i + 1) + '.</b> ' + s; }), 'te-final', document.createElement('span'), document.createElement('i'));
+
+  var timers = {};
+  function fmt(s) { var m = Math.floor(s / 60), r = s % 60; return (m < 10 ? '0' : '') + m + ':' + (r < 10 ? '0' : '') + r; }
+  [['t1', 900], ['t2', 60]].forEach(function (t) { timers[t[0]] = { total: t[1], left: t[1], id: null }; });
+  document.querySelectorAll('[data-t]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var t = timers[b.dataset.t], out = $(b.dataset.t), a = b.dataset.a;
+      if (a === 'start') {
+        if (t.id) return;
+        t.id = setInterval(function () { t.left--; out.textContent = fmt(Math.max(t.left, 0)); if (t.left <= 0) { clearInterval(t.id); t.id = null; } }, 1000);
+      } else if (a === 'pause') { clearInterval(t.id); t.id = null; }
+      else { clearInterval(t.id); t.id = null; t.left = t.total; out.textContent = fmt(t.left); }
+    });
+  });
+
+  /* rubric */
+  var crit = ['وضوح المشكلة', 'الإبداع والابتكار', 'توظيف التقنية', 'استخدام الذكاء الاصطناعي', 'قابلية التطبيق', 'قياس الأثر', 'الاستدامة', 'العرض والتقديم'];
+  var rs = [];
+  crit.forEach(function (c, i) {
+    var d = make('div', 'sl', '<label for="r' + i + '"><span></span><output>0</output></label><input type="range" id="r' + i + '" min="0" max="5" step="1" value="0">');
+    d.querySelector('span').textContent = c; $('rubGrid').appendChild(d);
+    var inp = d.querySelector('input'); rs.push({ inp: inp, out: d.querySelector('output') });
+    inp.addEventListener('input', sumR);
+  });
+  function sumR() {
+    var s = 0; rs.forEach(function (r) { s += +r.inp.value; r.out.textContent = r.inp.value + ' / 5'; });
+    $('rubTotal').textContent = s + ' من 40'; $('rubFill').style.width = (s / 40 * 100) + '%';
+  }
+  sumR();
+
+  /* outcomes */
+  checklist($('outList'), ['التعرف على مجموعة من الأدوات التقنية الحديثة.', 'اختيار الأداة المناسبة حسب المهمة التعليمية.', 'استخدام الذكاء الاصطناعي في توليد الأفكار.', 'كتابة برومبت فعّال.', 'تحويل فكرة إلى منتج رقمي.', 'التحقق من مخرجات الذكاء الاصطناعي.', 'توظيف التقنية في حل مشكلة حقيقية.', 'قياس أثر المشروع.', 'وضع خطة لاستدامة استخدام التقنية.'].map(function (s, i) { return '<b>' + (i + 1) + '.</b> ' + s; }), 'te-out', $('outPct'), $('outFill'));
+})();
+</script>
+
+</body></html>
